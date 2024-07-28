@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -12,6 +14,12 @@ import { fileNamer } from './fileNamer';
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
+
+  @Get('/:type/:imageName')
+  findProductImage(@Param('imageName') imageName: string) {
+    const path = this.filesService.getStaticProductImage(imageName);
+    return path;
+  }
 
   @Post('product')
   @UseInterceptors(
